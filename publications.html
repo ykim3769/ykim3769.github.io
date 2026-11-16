@@ -141,6 +141,19 @@ footer .wrap{padding-top:24px;padding-bottom:24px;display:flex;flex-wrap:wrap;ju
 <footer><div class="wrap"><span>© 2026 Yong-Guk Kim · Sejong University</span><span>Last updated: 2026</span></div></footer>
 <div class="toast" id="toast" role="status"></div>
 
+<!-- BibTeX: paste entries exactly as copied from Google Scholar / the publisher (no escaping needed).
+     Each entry is matched to a paper by its title. Papers without an entry here get an auto-generated BibTeX. -->
+<script type="text/x-bibtex" id="bibtex-data">
+@article{kha2026temporal,
+  title={Temporal diffuser: Timing scale-aware modulation for sign language production},
+  author={Kha, Kim-Thuy and Vo, Anh H and Le, Van-Vang and Song, Oh-Young and Kim, Yong-Guk},
+  journal={Engineering Applications of Artificial Intelligence},
+  volume={163},
+  pages={112739},
+  year={2026},
+}
+</script>
+
 <!-- Publication data: to add a paper, add one object to "papers". Counts and pages update automatically. -->
 <script type="application/json" id="papers-data">
 {
@@ -1585,6 +1598,14 @@ footer .wrap{padding-top:24px;padding-bottom:24px;display:flex;flex-wrap:wrap;ju
 (function(){
 const DATA = JSON.parse(document.getElementById('papers-data').textContent);
 const P = DATA.papers.map((p,i)=>({...p, id:'p'+(i+1)}));
+// Attach pasted BibTeX entries to papers by matching titles
+const norm = t => String(t).toLowerCase().replace(/[{}\\]/g,'').replace(/[^a-z0-9]+/g,'');
+(document.getElementById('bibtex-data')?.textContent || '').split(/\n(?=\s*@)/).map(e=>e.trim()).filter(e=>e.startsWith('@')).forEach(entry=>{
+  const m = entry.match(/title\s*=\s*[{"]([\s\S]*?)[}"]\s*,?\s*\n/i);
+  if(!m) return;
+  const hit = P.find(p=>norm(p.title)===norm(m[1]));
+  if(hit) hit.bib = entry; else console.warn('BibTeX entry not matched to any paper:', m[1]);
+});
 const AREAS = DATA.areas;
 const EARLY = 2016;
 const ICONS = {"face": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8\"/><path d=\"M9 9.5h.01M15 9.5h.01\"/>", "anomaly": "<path d=\"M3 17l5-6 4 4 3-5 6 7\"/><circle cx=\"15\" cy=\"6\" r=\"2\"/><path d=\"M3 21h18\"/>", "drones": "<circle cx=\"5\" cy=\"5\" r=\"2.5\"/><circle cx=\"19\" cy=\"5\" r=\"2.5\"/><circle cx=\"5\" cy=\"19\" r=\"2.5\"/><circle cx=\"19\" cy=\"19\" r=\"2.5\"/><rect x=\"9\" y=\"9\" width=\"6\" height=\"6\" rx=\"1\"/><path d=\"M7 7l2 2M17 7l-2 2M7 17l2-2M17 17l-2-2\"/>", "hci": "<path d=\"M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z\"/><path d=\"M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2v2l-3-2h-4\"/>", "genai": "<path d=\"M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z\"/><path d=\"M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z\"/>", "other": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/>"};              // papers in or before this year collapse under "Earlier publications"
@@ -1611,6 +1632,7 @@ function match(p){
   return true;
 }
 function bibtex(p){
+  if(p.bib) return p.bib;
   const first = p.authors.split(/,| and | & /)[0].trim().split(' ').pop();
   const key = (first+p.year+p.title.split(/\W+/).find(w=>w.length>3)).replace(/\W/g,'').toLowerCase();
   const authors = p.authors.replace(/\s*(&| and )\s*/g,', ').split(',').map(a=>a.trim()).filter(Boolean)

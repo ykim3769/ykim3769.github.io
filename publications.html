@@ -8,829 +8,1697 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#FFFFFF}
-a{color:#7A1F2B;text-decoration:none}a:hover{color:#5A1520;text-decoration:underline}
-</style>
-<style>html{scroll-behavior:smooth}</style>
-<style>
-.sgroup summary{list-style:none}
-.sgroup summary::-webkit-details-marker{display:none}
-.sgroup summary:hover{background:#F9F4F5}
-.sgroup summary:focus-visible{outline:2px solid #7A1F2B;outline-offset:2px}
-.sgroup .chev{transition:transform .2s ease;flex:0 0 auto}
-.sgroup[open] .chev{transform:rotate(180deg)}
-.sgroup[open] summary{border-bottom:1px solid #E3E6EA}
-.sgroup ul li:first-child{border-top:none!important}
+:root{--ink:#16191D;--ink2:#3D4552;--muted:#5A6270;--line:#E3E6EA;--line2:#C9D0D9;--brand:#7A1F2B;--brand-d:#5A1520;--brand-t:#F5E8EA;--soft:#F6F7F9}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line-height:1.6}
+a{color:var(--brand);text-decoration:none}a:hover{color:var(--brand-d);text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.serif{font-family:'Source Serif 4',Georgia,serif}
+header.site{border-bottom:1px solid var(--line)}
+header.site .wrap{padding-top:18px;padding-bottom:18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 32px}
+header.site nav{display:flex;flex-wrap:wrap;gap:4px 24px;font-size:15px;font-weight:500}
+header.site nav a{color:var(--ink2);padding:10px 0;border-bottom:2px solid transparent}
+header.site nav a[aria-current]{color:var(--brand);font-weight:600;border-bottom-color:var(--brand)}
+h1{margin:0;font-size:40px;font-weight:600}
+.lead{margin:12px 0 0;color:var(--muted);max-width:760px}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:28px}
+.stat{border:1px solid var(--line);border-radius:8px;padding:16px 18px;background:#fff}
+.stat b{display:block;font-family:'Source Serif 4',Georgia,serif;font-size:30px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+/* toolbar */
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin-top:32px;padding:14px 0}
+.tb-row{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center}
+.search{flex:1 1 280px;position:relative}
+.search input{width:100%;height:42px;border:1px solid var(--line2);border-radius:8px;padding:0 14px 0 38px;font:inherit;font-size:15px;color:var(--ink)}
+.search input:focus{outline:2px solid var(--brand);outline-offset:1px;border-color:transparent}
+.search svg{position:absolute;left:12px;top:12px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:#fff;font:inherit;font-size:14px;font-weight:500;color:var(--ink2);padding:0 14px;height:40px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line2)}
+.seg button[aria-pressed=true]{background:var(--brand);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line2);background:#fff;border-radius:999px;font:inherit;font-size:13px;font-weight:500;color:var(--ink);padding:0 12px;height:32px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip .n{color:var(--muted);font-variant-numeric:tabular-nums}
+.chip[aria-pressed=true]{background:var(--brand-t);border-color:var(--brand);color:var(--brand)}
+.chip[aria-pressed=true] .n{color:var(--brand)}
+.chip:focus-visible,.seg button:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.result{font-size:13px;color:var(--muted);margin-left:auto}
+.reset{border:0;background:none;color:var(--brand);font:inherit;font-size:13px;font-weight:500;cursor:pointer;padding:0}
+/* area nav */
+.areanav{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.areanav a{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border:1px solid var(--line2);border-radius:999px;font-size:14px;font-weight:500;color:var(--ink)}
+.areanav a span{color:var(--muted)}
+/* sections */
+section.grp{scroll-margin-top:150px;margin-top:44px}
+.grp-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-bottom:6px}
+.grp-h h2{margin:0;font-size:26px;font-weight:600}
+.grp-h span{font-size:14px;color:var(--muted)}
+ul.pubs{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line)}
+ul.pubs li{display:flex;flex-wrap:wrap;gap:2px 28px;padding:18px 0;border-top:1px solid var(--line)}
+ul.pubs li .media{flex:0 0 200px;margin-top:4px}
+.media video,.media img,.media .ph{display:block;width:200px;aspect-ratio:16/9;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.media video{background:#000}
+.media .ph{background:linear-gradient(135deg,#FAF6F7 0%,#F1F3F6 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--brand)}
+.media .ph b{font-size:13px;font-weight:600;color:var(--ink2);letter-spacing:.02em}
+@media (max-width:759px){ul.pubs li .media{order:3;flex-basis:100%}.media .ph{display:none}.media video,.media img{width:100%;max-width:360px}}
+ul.pubs li:target{background:#FFFBEA;box-shadow:0 0 0 8px #FFFBEA}
+.yr{flex:0 0 56px;font-size:15px;font-weight:600;color:var(--brand);font-variant-numeric:tabular-nums;padding-top:1px}
+.body{flex:999 1 420px;min-width:0}
+.t{font-weight:600;line-height:1.45}
+.t .star{color:#B7791F;margin-right:4px}
+.au{margin-top:4px;font-size:15px;color:#4A525E}
+.au strong{color:var(--ink)}
+.ve{font-size:15px;color:var(--muted);font-style:italic}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:8px}
+.b{font-size:12px;font-weight:600;padding:1px 8px;border-radius:4px;background:#EEF1F5;color:var(--ink2)}
+.b.top{background:var(--brand-t);color:var(--brand)}
+.b.q1{background:var(--brand);color:#fff}
+.b.st{background:#FBEFE3;color:#8A4B0F}
+.b.ty{background:#fff;border:1px solid var(--line2);color:var(--muted);font-weight:500}
+.acts{display:flex;flex-wrap:wrap;gap:0 18px;margin-top:4px;font-size:14px;font-weight:500}
+.acts a,.acts button{display:inline-flex;align-items:center;gap:4px;padding:6px 0}
+.acts button{border:0;background:none;font:inherit;color:var(--brand);cursor:pointer}
+.acts button:hover{color:var(--brand-d);text-decoration:underline}
+mark{background:#FFF1A8;color:inherit;padding:0 1px;border-radius:2px}
+details.sgroup{border:1px solid var(--line);border-top:0}
+details.sgroup summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;font-size:14px;font-weight:600;color:var(--ink2)}
+details.sgroup summary::-webkit-details-marker{display:none}
+details.sgroup summary:hover{background:#F9F4F5}
+details.sgroup summary:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+details.sgroup .chev{transition:transform .2s ease;flex:0 0 auto}
+details.sgroup[open] .chev{transform:rotate(180deg)}
+details.sgroup[open] summary{border-bottom:1px solid var(--line)}
+details.sgroup ul.pubs{border-bottom:0;padding:0 16px}
+details.sgroup ul.pubs li:first-child{border-top:0}
+.empty{padding:48px 0;text-align:center;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:14px;padding:10px 16px;border-radius:8px;opacity:0;transition:.2s;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{border-top:1px solid var(--line);margin-top:64px}
+footer .wrap{padding-top:24px;padding-bottom:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:14px;color:var(--muted)}
+@media (max-width:640px){h1{font-size:32px}.result{margin-left:0;width:100%}.toolbar{position:static}}
 </style>
 </head>
 <body>
-<div style="font-family: Inter, system-ui, sans-serif; color: #16191D; background: #FFFFFF; font-size: 16px; line-height: 1.6">
+<header class="site"><div class="wrap">
+<a href="index.html" class="serif" style="font-size:21px;font-weight:600;color:var(--ink)">Yong-Guk Kim</a>
+<nav aria-label="Main">
+<a href="index.html">Home</a>
+<a href="publications.html" aria-current="page">Publications</a>
+<a href="awards-patents.html">Awards &amp; Patents</a>
+<a href="grants.html">Grants</a>
+<a href="students.html">Students</a>
+<a href="about.html">About</a>
+</nav></div></header>
 
-<header style="border-bottom: 1px solid #E3E6EA; background: #FFFFFF">
-<div style="max-width: 1120px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px">
-<a href="index.html" style="font-family: 'Source Serif 4', Georgia, serif; font-size: 21px; font-weight: 600; color: #16191D">Yong-Guk Kim</a>
-<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 4px 24px; font-size: 15px; font-weight: 500">
-<a href="index.html" style="color: #3D4552; padding: 10px 0; border-bottom: 2px solid transparent">Home</a>
-<a href="publications.html" aria-current="page" style="color: #7A1F2B; font-weight: 600; padding: 10px 0; border-bottom: 2px solid #7A1F2B">Publications</a>
-<a href="awards-patents.html" style="color: #3D4552; padding: 10px 0; border-bottom: 2px solid transparent">Awards &amp; Patents</a>
-<a href="grants.html" style="color: #3D4552; padding: 10px 0; border-bottom: 2px solid transparent">Grants</a>
-<a href="students.html" style="color: #3D4552; padding: 10px 0; border-bottom: 2px solid transparent">Students</a>
-<a href="about.html" style="color: #3D4552; padding: 10px 0; border-bottom: 2px solid transparent">About</a>
-</nav>
+<main class="wrap" style="padding-top:56px">
+<div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px">
+<h1 class="serif">Publications</h1>
+<a href="https://scholar.google.com/citations?user=gGfbXFIAAAAJ&amp;hl=ko" style="font-size:15px;font-weight:500">Complete list on Google Scholar →</a>
 </div>
-</header>
+<p class="lead">Journal articles, conference papers and preprints from 2002 to 2026. IF = Impact Factor (Science Citation Index). Top % = JCR ranking percentile. † Corresponding author. ★ Selected paper.</p>
 
-<main>
-<div style="max-width: 1120px; margin: 0 auto; padding: 64px 24px">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px">
-<h1 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 40px; font-weight: 600">Publications</h1>
-<a href="https://scholar.google.com/citations?user=gGfbXFIAAAAJ&amp;hl=ko" style="font-size: 15px; font-weight: 500">Complete list on Google Scholar →</a>
-</div>
-<p style="margin: 12px 0 0; color: #5A6270; max-width: 760px">Publications from 2002 to 2026 (81 papers), grouped by research area and listed from newest to oldest. IF = Impact Factor (Science Citation Index). Top % = JCR ranking percentile. † Corresponding author.</p>
-<nav aria-label="Research areas" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px">
-<a href="#face" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #C9D0D9; border-radius: 999px; font-size: 14px; font-weight: 500; color: #16191D">Facial Expression Recognition &amp; Generation<span style="color: #5A6270">29</span></a>
-<a href="#anomaly" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #C9D0D9; border-radius: 999px; font-size: 14px; font-weight: 500; color: #16191D">Anomaly Detection<span style="color: #5A6270">3</span></a>
-<a href="#drones" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #C9D0D9; border-radius: 999px; font-size: 14px; font-weight: 500; color: #16191D">Autonomous Drones<span style="color: #5A6270">8</span></a>
-<a href="#hci" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #C9D0D9; border-radius: 999px; font-size: 14px; font-weight: 500; color: #16191D">Multimodal LLMs for HCI / HRI<span style="color: #5A6270">7</span></a>
-<a href="#genai" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #C9D0D9; border-radius: 999px; font-size: 14px; font-weight: 500; color: #16191D">Generative AI &amp; Foundation Models<span style="color: #5A6270">3</span></a>
-<a href="#other" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #C9D0D9; border-radius: 999px; font-size: 14px; font-weight: 500; color: #16191D">Other Topics in Vision &amp; AI<span style="color: #5A6270">31</span></a>
-</nav>
-<section id="face" style="scroll-margin-top: 24px; margin-top: 48px">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 8px"><h2 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 26px; font-weight: 600">Facial Expression Recognition &amp; Generation</h2><span style="font-size: 14px; color: #5A6270">29 papers</span></div>
-<ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #E3E6EA">
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2026</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Temporal diffuser: Timing scale-aware modulation for sign language production</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">KT Kha, AH Vo, VV Le, OY Song, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Engineering Applications of Artificial Intelligence, Vol. 163, 112739</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500">
-    <a href="https://github.com/kha-kim-thuy/Sign-Diffusion-Model" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Code<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
-<a href="https://kha-kim-thuy.github.io/SLP-Demo/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Project page<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
-</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 9.0</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 3.1%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2025</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Instruction-Driven 3D Facial Expression Generation and Transition</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">AH Vo, TS Kim, SM Choi, H Jin, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE Transactions on Multimedia, Vol. 27, pp. 6140–6153</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://vohoanganh.github.io/tg3dfet/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Project page<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 9.9</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 2%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2023</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Integration of a Lightweight Customized 2D CNN Model to an Edge Computing System for Real-Time Multiple Gesture Recognition</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">H Jin, Z Jin, <strong style="color: #16191D">YG Kim</strong>, C Fan</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Journal of Grid Computing, 21(4), 81</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 3.9</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2021</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Weighted Statistical Binary Patterns for Facial Feature Representation</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">HP Truong, TP Nguyen, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Intelligence</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 3.6</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2020</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Deep Fusion for 3D Gaze Estimation From Natural Face Images Using Multi-Stream CNNs</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">A Abid and <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE Access, 8, 69212</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 4.2</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2018</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">3D Hand Pose Estimation from Monocular RGB Images using Advanced Conditional GAN</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">LH Nguyen, LM Quan, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">ECCV Workshops</div>
+<div class="stats" id="stats"></div>
 
+<div class="toolbar" role="search">
+<div class="tb-row">
+<label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+<input id="q" type="search" placeholder="Search title, author or venue…" aria-label="Search publications"></label>
+<div class="seg" role="group" aria-label="Group by">
+<button type="button" data-view="area" aria-pressed="true">By area</button>
+<button type="button" data-view="year" aria-pressed="false">By year</button>
 </div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2018</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Enhanced Line Local Binary Patterns (EL-LBP): An Efficient Image Representation for Face Recognition</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">HP Truong, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">International Conference on Advanced Concepts for Intelligent Vision Systems (ACIVS)</div>
+</div>
+<div class="chips" id="chips"></div>
+<div class="tb-row" style="margin-top:8px"><span class="result" id="result" aria-live="polite"></span></div>
+</div>
 
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2018</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Deep Manifold Embedding Active Shape Model for Pose Invariant Face Tracking</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">IH Choi, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE International Conference on Big Data and Smart Computing (BigComp)</div>
-
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2017</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Detection of drowsiness driver using 3D deep neural network and semi-supervised gradient boosting machine</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">XP Huynh, SM Park &amp; <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">ACCV 2016 Workshops, Part III, LNCS 10118, pp. 134–145</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #FBEFE3; color: #8A4B0F">1st Prize · ACCV 2016 Workshop on Driver Drowsiness Detection</span></div>
-
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2017</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">DeepForest: 3D hand pose estimation using deep network and random forest regression</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">LM Quan &amp; <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">AAAI 2017, San Francisco, USA</div>
-
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2016</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Tracking driver’s face against extreme head poses and inference of drowsiness using hidden Markov model</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">IH Choi, CH Jeong, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Sciences, 6(5), 137</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 2.9</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2016</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Convolutional Neural Network Models for Facial Expression Recognition Using BU-3DFE Database</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">XP Huynh, TD Tran, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Lecture Notes in Electrical Engineering (LNEE), Vol. 376, pp. 441–450</div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2016</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Real-time categorization of driver’s gaze zone using the deep learning techniques</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">IH Choi, SK Hong, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE International Conference on Big Data and Smart Computing (BigComp) 2016, Hong Kong (Oral)</div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2015</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Robust Facial State Estimation against Occlusion and Inference of Drivers Drowsiness Using Hidden Markov Model</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">IH Choi, CH Jeong, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Lecture Notes in Electrical Engineering (LNEE), Vol. 352, pp. 45–51</div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2015</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Head pose and gaze direction tracking for detecting a drowsy driver</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">IH Choi, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Mathematics &amp; Information Sciences, 9(2L), pp. 505–512</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 1.23</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2015</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Tracking driver’s face fast and reliably for detecting his drowsiness</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">IH Choi, CH Jeong, JK Sung, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IMETI 2014</div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2014</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Head pose and gaze direction tracking for detecting a drowsy driver</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">IH Choi, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE International Conference on Big Data and Smart Computing (BigComp) 2014</div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2012</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Robust Facial Expression Recognition Using a Smartphone Working against Illumination Variation</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">KS Cho, IH Choi, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Mathematics &amp; Information Sciences, 6-2S</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 1.23</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2007</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Robust Active Appearance Model Based Upon Multi-Linear Analysis against Illumination Variation</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">GS Jo, HJ Moon, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 5615, pp. 667–673</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2007</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Continuous recognition of human facial expressions using active appearance model</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">KS Cho, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 4555, pp. 777–783</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2006</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Face Representation Method Using Pixel-to-Vertex Map (PVM) for 3D Model Based Face Recognition</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">TH Hong, HB Kim, HJ Moon, <strong style="color: #16191D">YG Kim</strong>, JW Lee, SB Moon</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 4031, pp. 21–28</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2006</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Facial Expression Recognition Using Active Appearance Model</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">TH Hong, YB Lee, <strong style="color: #16191D">YG Kim</strong>, HB Kim</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3972, pp. 69–76</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Face and Facial Expression Recognition with an Embedded System for Human-Robot Interaction</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">YB Lee, SB Moon, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3784, pp. 271–278</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">An Affective User Interface Based on Facial Expression Recognition and Eye-Gaze Tracking</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SM Choi, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3784, pp. 907–714</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">A fully automatic system for recognizing human facial expressions</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E"><strong style="color: #16191D">YG Kim</strong>, SO Lee, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3215, pp. 203–209</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">3-D Facial expression recognition-synthesis on PDA incorporating emotional timing</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">DS Lee, YB Lee, SM Choi, <strong style="color: #16191D">YG Kim</strong>, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3332, pp. 569–576</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Non-photorealistic 3-D facial expression on the PDA based on facial expression recognition</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SM Choi, <strong style="color: #16191D">YG Kim</strong>, DS Lee, SH Lee, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3031, pp. 11–20</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">An authentication scheme based upon face recognition for the mobile environment</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E"><strong style="color: #16191D">YG Kim</strong>, T Kwon</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3314, pp. 274–279</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2003</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Facial Expression Recognition based upon Gabor-wavelets based Enhanced Fisher Model</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SO Lee, <strong style="color: #16191D">YG Kim</strong>, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 2869, pp. 490–496</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="anomaly" style="scroll-margin-top: 24px; margin-top: 48px">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 8px"><h2 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 26px; font-weight: 600">Anomaly Detection</h2><span style="font-size: 14px; color: #5A6270">3 papers</span></div>
-<ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #E3E6EA">
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2025</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">HSTforU: Anomaly Detection in Aerial and Ground-based Videos with Hierarchical Spatio-Temporal Transformer for U-net</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">VT Le, H Jin, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Intelligence, 55, 262</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://github.com/vt-le/HSTforU" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Code<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 3.5</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2023</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Attention-based Residual Autoencoder for Video Anomaly Detection</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">VT Le &amp; <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Intelligence, 52, 3240–3254</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://github.com/vt-le/astnet" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Code<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a><a href="https://vt-le.github.io/astnet/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Project page<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 4.2</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2020</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Android-GAN: Defending against Android Pattern Attacks using Multi-Modal Generative Network as Anomaly Detector</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SY Shin, YW Kang, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Expert Systems With Applications, 112964</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 9.4</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 5%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="drones" style="scroll-margin-top: 24px; margin-top: 48px">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 8px"><h2 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 26px; font-weight: 600">Autonomous Drones</h2><span style="font-size: 14px; color: #5A6270">8 papers</span></div>
-<ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #E3E6EA">
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2026</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">From Pixels to Planning: A Generative AI Perspective of UAV Autonomy</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">R Imandi, MJ Ignacio, P Kumar, HK Song, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Archives of Computational Methods in Engineering</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #FBEFE3; color: #8A4B0F">Under review</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2025</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Building sustainable federated learning models in Fog-enabled UAV-as-a-Service for aerial image classification</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">R Imandi, A Roy, <strong style="color: #16191D">YG Kim</strong>, P Kumar</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Sustainable Computing: Informatics and Systems, Vol. 46, 101133</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 6.2</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2025</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Autonomous Drone Navigation through Vertical Obstacles with Novel Reward Function and Temporal Shift Architecture</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">KG Diep and <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE Conference on Control, Decision and Information Technologies (CoDIT), July 2025</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://www.youtube.com/watch?v=Y8A3pt9yxP8" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Video 1<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
-<a href="https://www.youtube.com/watch?v=yC2c9BgMw1Q" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Video 2<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
-</div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2024</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Reinforcement Learning based Drone Simulators: Survey, Practice, and Challenge</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">JH Chan, K Liu, Y Chen, AS Sagar, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Artificial Intelligence Review, 57, 281</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 18.8</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 2.8%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2020</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Reward-Driven U-Net Training for Obstacle Avoidance Drone</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SY Shin, YW Kang, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Expert Systems With Applications, 113064</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://github.com/anonymous276/Contents" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Code<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 9.4</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 5%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2019</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Obstacle Avoidance Drone by Deep Reinforcement Learning and Its Racing with Human Pilot</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SY Shin, YW Kang, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Sciences, 9, 5571</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 2.9</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2019</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Automatic Drone Navigation in Realistic 3D Landscapes using Deep Reinforcement Learning</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SY Shin, YW Kang, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">6th International Conference on Control, Decision and Information Technologies (CoDIT)</div>
-
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2019</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Hand Gesture-based Wearable Human-Drone Interface for Intuitive Movement Control</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SY Shin, YW Kang, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE International Conference on Consumer Electronics (ICCE)</div>
-
-</div>
-</li>
-</ul>
-</section>
-<section id="hci" style="scroll-margin-top: 24px; margin-top: 48px">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 8px"><h2 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 26px; font-weight: 600">Multimodal LLMs for HCI / HRI</h2><span style="font-size: 14px; color: #5A6270">7 papers</span></div>
-<ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #E3E6EA">
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2026</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Closing the Loop: Unified 3D Scene Generation and Immersive Interaction via LLM-RL Coupling</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">AH Vo, S Lee, PJ Kim, SM Choi, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE Transactions on Multimedia · arXiv:2605.05711</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #FBEFE3; color: #8A4B0F">Under revision</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2024</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">UI/UX for Generative AI: Taxonomy, Trend, and Challenge</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">TS Kim, MJ Ignacio, S Yu, H Jin, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE Access, 12, 179891–179911</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 4.2</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2024</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Meme Analysis using LLM-based Contextual Information and U-net Encapsulated Transformer</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">MJ Ignacio, TT Nguyen, H Jin, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE Access, 12, 125993–126005</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://github.com/ignaciomarvinjohn/meme-uet-hmt" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Code<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 4.2</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2023</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Coarse-to-Fine Fusion for Language Grounding in 3D Navigation</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">TT Nguyen, AH Vo, SM Choi, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Knowledge-Based Systems, 277, 110785</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://www.youtube.com/watch?v=rwODCJFM1SY" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Video<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 8.0</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2022</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Analysis of Sentiment, Emotion &amp; Intensity of Emotion Classes from Meme Images using Single and Multi-Modalities</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">TT Nguyen, NT Pham, ND Nguyen, H Nguyen, LH Nguyen, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">AAAI Workshop on Multimodal Fact-Checking and Hate Speech Detection, Vancouver, Canada</div>
-
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2012</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Human and Robot Localization Using Histogram of Oriented Gradients (HOG) Feature for an Active Information Display in Intelligent Space</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">JE Lee, JH Kim, SJ Kim, <strong style="color: #16191D">YG Kim</strong>, JH Lee, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Advanced Science Letters, 9(1)</div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2007</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Human interface for the robot control in networked and multi-sensored environment</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">HG Lee, <strong style="color: #16191D">YG Kim</strong>, HD Lee, JH Kim, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 4555, pp. 928–935</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="genai" style="scroll-margin-top: 24px; margin-top: 48px">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 8px"><h2 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 26px; font-weight: 600">Generative AI &amp; Foundation Models</h2><span style="font-size: 14px; color: #5A6270">3 papers</span></div>
-<ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #E3E6EA">
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2026</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Revisiting U-Net: a foundational backbone for modern generative AI</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">MJ Ignacio, S Shin, H Jin, SJ Yoo, D Han, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Artificial Intelligence Review, Vol. 59, 45</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 18.8</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 2.8%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2026</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">U-Net Encapsulated Transformer for Reducing Dimensionality in Training Large Language Models</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">MJ Ignacio, <strong style="color: #16191D">YG Kim</strong>, H Jin, SH Yu</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">ACM Transactions on Intelligent Systems and Technology, Vol. 17, 3, pp. 1–32</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 10.7</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 3.2%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2024</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">UET4Rec: U-net Encapsulated Transformer for Sequential Recommender</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">J Wang, MJ Ignacio, S Yu, H Jin, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Expert Systems with Applications, 255, 124781</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://github.com/ignaciomarvinjohn/uet4rec/tree/main" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Code<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 9.4</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 5%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="other" style="scroll-margin-top: 24px; margin-top: 48px">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 8px"><h2 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 26px; font-weight: 600">Other Topics in Vision &amp; AI</h2><span style="font-size: 14px; color: #5A6270">31 papers</span></div>
-<ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #E3E6EA">
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2026</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">AdaFuse-Det: Adaptive Cross-Modal Fusion of Event Cameras for Robust Object Detection in Low-Light RGB Imagery</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">R Imandi, B Chethana, B Chakravarthi, <strong style="color: #16191D">YG Kim</strong>, S Manipriya, P Kumar</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE ICRA Workshop on The Challenges and Opportunities of Neuromorphic Field Robotics and Automation, June 2026</div>
-
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2024</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Joint Task Offloading Based on Distributed Deep Reinforcement Learning-Based Genetic Optimization Algorithm for Internet of Vehicles</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">H Jin, <strong style="color: #16191D">YG Kim</strong>, Z Jin, C Fan, Y Xu</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Journal of Grid Computing, 22(1), 34</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 3.9</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2024</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Object Detection and Classification Framework for Analysis of Video Data Acquired from Indian Roads</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">A Padia, TN Aryan, S Thummagunti, V Sharma, MK Vanahalli, P Prasad, GN Girish, <strong style="color: #16191D">YG Kim</strong>, P Kumar</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Sensors, 24, 6319</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 4.0</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2022</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Reflection Symmetry Detection of Shapes based on Shape Signatures</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">TP Nguyen, HP Truong, TT Nguyen, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Pattern Recognition, Vol. 128, 108667</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 9.1</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 6.6%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2021</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Attacks and Preventive Measures on Video Surveillance Systems: A Review</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">P Vennam, TC Pramod, BM Thippeswamy, <strong style="color: #16191D">YG Kim</strong>, P Kumar</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Sciences, 11(12), 5571</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 2.9</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2019</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">NTIRE 2019 Image Dehazing Challenge Report</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">C Ancuti et al. (incl. <strong style="color: #16191D">YG Kim</strong>, participating team)</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">CVPRW on NTIRE, Long Beach, California, USA</div>
-
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2018</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Iterative Application of Autoencoder for Video Inpainting and Fingerprint Denoising</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">LM Quan &amp; <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">ECCV Workshops</div>
-
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2015</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Tracking a Human Fast and Reliably Against Occlusion and Human-Crossing</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">XP Huynh, IH Choi, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Pacific-Rim Symposium on Image and Video Technology (PSIVT) 2015, New Zealand · LNCS, Vol. 9431, pp. 461–472</div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2012</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Use of an Evolutionary Inductive Self-organizing Network for Uncertain Nonlinear and Robotic Systems</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">DW Kim, SJ Seo, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">International Journal of Advanced Robotic Systems, 9</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 2.3</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2012</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Stereo Image Synthesis by View Morphing with Stereo Consistency</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SM Rhee, YJ Yoon, IK Shin, <strong style="color: #16191D">YG Kim</strong>, YJ Choi, SM Choi</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Mathematics &amp; Information Sciences, Vol. 6, pp. 195s–200s</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 1.23</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2007</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Tracking and Segmenting Diverse Objects Using Active Appearance Model</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">KS Cho, SM Choi, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 4555, pp. 928–935</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2007</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Web access performance with intelligent mobile agents for real-time ubiquitous-unified web information</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">YB Kim, <strong style="color: #16191D">YG Kim</strong>, JJ Lee</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 4681, pp. 208–217</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2006</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">A stereovision based advanced airbag system</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SJ Lee, <strong style="color: #16191D">YG Kim</strong>, MS Jang, HG Lee, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 4251, pp. 590–597</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2006</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Performance Comparison between Backpropagation, Neuro-Fuzzy Network, and SVM</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E"><strong style="color: #16191D">YG Kim</strong>, MS Jang, KS Cho, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3967, pp. 438–446</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2006</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Head Detection and Tracking for the Car Occupants Pose Recognition</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">JE Lee, <strong style="color: #16191D">YG Kim</strong>, SJ Kim, MS Jang, SJ Lee, MC Park, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 4031, pp. 540–547</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Shape Comparison of the Hippocampus Using a Multiresolution Representation and ICP Normalization</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">JS Kim, <strong style="color: #16191D">YG Kim</strong>, SM Choi, MH Kim</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3683, pp. 233–239</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">3-D Pose Tracking of the Car Occupant</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SJ Kim, <strong style="color: #16191D">YG Kim</strong>, JE Lee, MS Jang, SJ Lee, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3683, pp. 219–224</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Similarity Estimation of 3-D Shapes Using Modal Strain Energy</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SM Choi, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3683, pp. 206–211</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Vision based Automatic Occupant Classification and Pose Recognition for Smart Airbag Deployment</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">MS Jang, <strong style="color: #16191D">YG Kim</strong>, SJ Kim, JE Lee, SJ Lee, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3643, pp. 410–415</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Trajectory interpretation by supplementary eye field neurons during ocular baseball</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E"><strong style="color: #16191D">YG Kim</strong>, J Badler, SJ Heinen</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Journal of Neurophysiology, Vol. 94, pp. 1385–1391</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 2.5</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Morphometry of the Hippocampus Based on a Deformable Model and Support Vector Machines</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">JS Kim, <strong style="color: #16191D">YG Kim</strong>, SM Choi, MH Kim</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNAI, Vol. 3581, pp. 353–362</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.25</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">A Feature Map Consisting of Orientation and Inter-ridge Spacing for Fingerprint Retrieval</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SO Lee, <strong style="color: #16191D">YG Kim</strong>, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3546, pp. 184–190</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2005</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Head Detection of the Car Occupant based on Contour Models and Support Vector Machines</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E"><strong style="color: #16191D">YG Kim</strong>, JE Lee, SJ Kim, SM Choi, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNAI, Vol. 3533, pp. 59–61</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.25</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Occupant classification for smart airbag using stereovision and support vector machines</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">HG Lee, <strong style="color: #16191D">YG Kim</strong>, MS Jang, SJ Kim, SJ Lee, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNAI, Vol. 3173, pp. 642–647</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.25</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">A boundary surface based ray casting using 6-depth buffers</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">JW Song, OB Gwun, SW Kim, <strong style="color: #16191D">YG Kim</strong></div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3314, pp. 1134–1140</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">3-D Shape analysis of anatomical structures based on an interactive multiresolution approach</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">SM Choi, JS Kim, <strong style="color: #16191D">YG Kim</strong>, JY Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3332, pp. 319–326</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Brain region extraction and direct volume rendering of MRI Head data</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E"><strong style="color: #16191D">YG Kim</strong>, OB Gwun, JW Song</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3314, pp. 516–522</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Pose Classification of car occupant using stereovision and support vector machines</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">MS Jang, <strong style="color: #16191D">YG Kim</strong>, HG Lee, SJ Lee, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3215, pp. 196–204</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Deformable templates for recognizing the shape of the Zebra Fish Egg</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">HD Lee, MS Jang, SJ Lee, <strong style="color: #16191D">YG Kim</strong>, BK Kim, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3045, pp. 489–497</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2004</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Shape Recognition of the Embryo Cell using deformable template for micromanipulation</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">MS Jang, SJ Lee, HD Lee, <strong style="color: #16191D">YG Kim</strong>, BK Kim, GT Park</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">LNCS, Vol. 3029, pp. 463–472</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 0.51</span></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2002</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Conditions under which stereopsis and motion perceptions are blind</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E"><strong style="color: #16191D">YG Kim</strong>, JD Mollon</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Perception, Vol. 31, pp. 65–71</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 1.7</span></div>
-</div>
-</li>
-</ul>
-</section>
-</div>
+<nav class="areanav" id="areanav" aria-label="Research areas"></nav>
+<div id="list"></div>
 </main>
 
-<footer style="border-top: 1px solid #E3E6EA">
-<div style="max-width: 1120px; margin: 0 auto; padding: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 14px; color: #5A6270">
-<span>© 2026 Yong-Guk Kim · Sejong University</span>
-<span>Last updated: 2026</span>
-</div>
-</footer>
+<footer><div class="wrap"><span>© 2026 Yong-Guk Kim · Sejong University</span><span>Last updated: 2026</span></div></footer>
+<div class="toast" id="toast" role="status"></div>
 
-</div>
+<!-- Publication data: to add a paper, add one object to "papers". Counts and pages update automatically. -->
+<script type="application/json" id="papers-data">
+{
+ "areas": [
+  {
+   "id": "face",
+   "name": "Facial Expression Recognition & Generation"
+  },
+  {
+   "id": "anomaly",
+   "name": "Anomaly Detection"
+  },
+  {
+   "id": "drones",
+   "name": "Autonomous Drones"
+  },
+  {
+   "id": "hci",
+   "name": "Multimodal LLMs for HCI / HRI"
+  },
+  {
+   "id": "genai",
+   "name": "Generative AI & Foundation Models"
+  },
+  {
+   "id": "other",
+   "name": "Other Topics in Vision & AI"
+  }
+ ],
+ "papers": [
+  {
+   "area": "face",
+   "year": 2026,
+   "title": "Temporal diffuser: Timing scale-aware modulation for sign language production",
+   "authors": "KT Kha, AH Vo, VV Le, OY Song, YG Kim",
+   "corr": true,
+   "venue": "Engineering Applications of Artificial Intelligence, Vol. 163, 112739",
+   "type": "journal",
+   "links": [
+    {
+     "label": "Code",
+     "url": "https://github.com/kha-kim-thuy/Sign-Diffusion-Model"
+    },
+    {
+     "label": "Project page",
+     "url": "https://kha-kim-thuy.github.io/SLP-Demo/"
+    }
+   ],
+   "if": "9.0",
+   "top": "3.1%",
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": true,
+   "short": "EAAI 2026"
+  },
+  {
+   "area": "face",
+   "year": 2025,
+   "title": "Instruction-Driven 3D Facial Expression Generation and Transition",
+   "authors": "AH Vo, TS Kim, SM Choi, H Jin, YG Kim",
+   "corr": true,
+   "venue": "IEEE Transactions on Multimedia, Vol. 27, pp. 6140–6153",
+   "type": "journal",
+   "links": [
+    {
+     "label": "Project page",
+     "url": "https://vohoanganh.github.io/tg3dfet/"
+    }
+   ],
+   "if": "9.9",
+   "top": "2%",
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": true,
+   "short": "IEEE TMM 2025"
+  },
+  {
+   "area": "face",
+   "year": 2023,
+   "title": "Integration of a Lightweight Customized 2D CNN Model to an Edge Computing System for Real-Time Multiple Gesture Recognition",
+   "authors": "H Jin, Z Jin, YG Kim, C Fan",
+   "corr": false,
+   "venue": "Journal of Grid Computing, 21(4), 81",
+   "type": "journal",
+   "links": [],
+   "if": "3.9",
+   "top": null,
+   "q": "Q2",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "J. Grid Comput. 2023"
+  },
+  {
+   "area": "face",
+   "year": 2021,
+   "title": "Weighted Statistical Binary Patterns for Facial Feature Representation",
+   "authors": "HP Truong, TP Nguyen, YG Kim",
+   "corr": true,
+   "venue": "Applied Intelligence",
+   "type": "journal",
+   "links": [],
+   "if": "3.6",
+   "top": null,
+   "q": "Q2",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "Appl. Intell. 2021"
+  },
+  {
+   "area": "face",
+   "year": 2020,
+   "title": "Deep Fusion for 3D Gaze Estimation From Natural Face Images Using Multi-Stream CNNs",
+   "authors": "A Abid and YG Kim",
+   "corr": true,
+   "venue": "IEEE Access, 8, 69212",
+   "type": "journal",
+   "links": [],
+   "if": "4.2",
+   "top": null,
+   "q": "Q2",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "IEEE Access 2020"
+  },
+  {
+   "area": "face",
+   "year": 2018,
+   "title": "3D Hand Pose Estimation from Monocular RGB Images using Advanced Conditional GAN",
+   "authors": "LH Nguyen, LM Quan, YG Kim",
+   "corr": true,
+   "venue": "ECCV Workshops",
+   "type": "workshop",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "ECCVW 2018"
+  },
+  {
+   "area": "face",
+   "year": 2018,
+   "title": "Enhanced Line Local Binary Patterns (EL-LBP): An Efficient Image Representation for Face Recognition",
+   "authors": "HP Truong, YG Kim",
+   "corr": true,
+   "venue": "International Conference on Advanced Concepts for Intelligent Vision Systems (ACIVS)",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "ACIVS 2018"
+  },
+  {
+   "area": "face",
+   "year": 2018,
+   "title": "Deep Manifold Embedding Active Shape Model for Pose Invariant Face Tracking",
+   "authors": "IH Choi, YG Kim",
+   "corr": true,
+   "venue": "IEEE International Conference on Big Data and Smart Computing (BigComp)",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "BigComp 2018"
+  },
+  {
+   "area": "face",
+   "year": 2017,
+   "title": "Detection of drowsiness driver using 3D deep neural network and semi-supervised gradient boosting machine",
+   "authors": "XP Huynh, SM Park & YG Kim",
+   "corr": true,
+   "venue": "ACCV 2016 Workshops, Part III, LNCS 10118, pp. 134–145",
+   "type": "workshop",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": "1st Prize · ACCV 2016 Workshop on Driver Drowsiness Detection",
+   "selected": false,
+   "short": "ACCVW 2017"
+  },
+  {
+   "area": "face",
+   "year": 2017,
+   "title": "DeepForest: 3D hand pose estimation using deep network and random forest regression",
+   "authors": "LM Quan & YG Kim",
+   "corr": true,
+   "venue": "AAAI 2017, San Francisco, USA",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "AAAI 2017"
+  },
+  {
+   "area": "face",
+   "year": 2016,
+   "title": "Tracking driver’s face against extreme head poses and inference of drowsiness using hidden Markov model",
+   "authors": "IH Choi, CH Jeong, YG Kim",
+   "corr": false,
+   "venue": "Applied Sciences, 6(5), 137",
+   "type": "journal",
+   "links": [],
+   "if": "2.9",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2016,
+   "title": "Convolutional Neural Network Models for Facial Expression Recognition Using BU-3DFE Database",
+   "authors": "XP Huynh, TD Tran, YG Kim",
+   "corr": false,
+   "venue": "Lecture Notes in Electrical Engineering (LNEE), Vol. 376, pp. 441–450",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2016,
+   "title": "Real-time categorization of driver’s gaze zone using the deep learning techniques",
+   "authors": "IH Choi, SK Hong, YG Kim",
+   "corr": false,
+   "venue": "IEEE International Conference on Big Data and Smart Computing (BigComp) 2016, Hong Kong (Oral)",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2015,
+   "title": "Robust Facial State Estimation against Occlusion and Inference of Drivers Drowsiness Using Hidden Markov Model",
+   "authors": "IH Choi, CH Jeong, YG Kim",
+   "corr": false,
+   "venue": "Lecture Notes in Electrical Engineering (LNEE), Vol. 352, pp. 45–51",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2015,
+   "title": "Head pose and gaze direction tracking for detecting a drowsy driver",
+   "authors": "IH Choi, YG Kim",
+   "corr": false,
+   "venue": "Applied Mathematics & Information Sciences, 9(2L), pp. 505–512",
+   "type": "journal",
+   "links": [],
+   "if": "1.23",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2015,
+   "title": "Tracking driver’s face fast and reliably for detecting his drowsiness",
+   "authors": "IH Choi, CH Jeong, JK Sung, YG Kim",
+   "corr": false,
+   "venue": "IMETI 2014",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2014,
+   "title": "Head pose and gaze direction tracking for detecting a drowsy driver",
+   "authors": "IH Choi, YG Kim",
+   "corr": false,
+   "venue": "IEEE International Conference on Big Data and Smart Computing (BigComp) 2014",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2012,
+   "title": "Robust Facial Expression Recognition Using a Smartphone Working against Illumination Variation",
+   "authors": "KS Cho, IH Choi, YG Kim",
+   "corr": false,
+   "venue": "Applied Mathematics & Information Sciences, 6-2S",
+   "type": "journal",
+   "links": [],
+   "if": "1.23",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2007,
+   "title": "Robust Active Appearance Model Based Upon Multi-Linear Analysis against Illumination Variation",
+   "authors": "GS Jo, HJ Moon, YG Kim",
+   "corr": false,
+   "venue": "LNCS, Vol. 5615, pp. 667–673",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2007,
+   "title": "Continuous recognition of human facial expressions using active appearance model",
+   "authors": "KS Cho, YG Kim",
+   "corr": false,
+   "venue": "LNCS, Vol. 4555, pp. 777–783",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2006,
+   "title": "Face Representation Method Using Pixel-to-Vertex Map (PVM) for 3D Model Based Face Recognition",
+   "authors": "TH Hong, HB Kim, HJ Moon, YG Kim, JW Lee, SB Moon",
+   "corr": false,
+   "venue": "LNCS, Vol. 4031, pp. 21–28",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2006,
+   "title": "Facial Expression Recognition Using Active Appearance Model",
+   "authors": "TH Hong, YB Lee, YG Kim, HB Kim",
+   "corr": false,
+   "venue": "LNCS, Vol. 3972, pp. 69–76",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2005,
+   "title": "Face and Facial Expression Recognition with an Embedded System for Human-Robot Interaction",
+   "authors": "YB Lee, SB Moon, YG Kim",
+   "corr": false,
+   "venue": "LNCS, Vol. 3784, pp. 271–278",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2005,
+   "title": "An Affective User Interface Based on Facial Expression Recognition and Eye-Gaze Tracking",
+   "authors": "SM Choi, YG Kim",
+   "corr": false,
+   "venue": "LNCS, Vol. 3784, pp. 907–714",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2004,
+   "title": "A fully automatic system for recognizing human facial expressions",
+   "authors": "YG Kim, SO Lee, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3215, pp. 203–209",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2004,
+   "title": "3-D Facial expression recognition-synthesis on PDA incorporating emotional timing",
+   "authors": "DS Lee, YB Lee, SM Choi, YG Kim, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3332, pp. 569–576",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2004,
+   "title": "Non-photorealistic 3-D facial expression on the PDA based on facial expression recognition",
+   "authors": "SM Choi, YG Kim, DS Lee, SH Lee, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3031, pp. 11–20",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2004,
+   "title": "An authentication scheme based upon face recognition for the mobile environment",
+   "authors": "YG Kim, T Kwon",
+   "corr": false,
+   "venue": "LNCS, Vol. 3314, pp. 274–279",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "face",
+   "year": 2003,
+   "title": "Facial Expression Recognition based upon Gabor-wavelets based Enhanced Fisher Model",
+   "authors": "SO Lee, YG Kim, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 2869, pp. 490–496",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "anomaly",
+   "year": 2025,
+   "title": "HSTforU: Anomaly Detection in Aerial and Ground-based Videos with Hierarchical Spatio-Temporal Transformer for U-net",
+   "authors": "VT Le, H Jin, YG Kim",
+   "corr": true,
+   "venue": "Applied Intelligence, 55, 262",
+   "type": "journal",
+   "links": [
+    {
+     "label": "Code",
+     "url": "https://github.com/vt-le/HSTforU"
+    }
+   ],
+   "if": "3.5",
+   "top": null,
+   "q": "Q2",
+   "status": null,
+   "award": null,
+   "selected": true,
+   "short": "Appl. Intell. 2025"
+  },
+  {
+   "area": "anomaly",
+   "year": 2023,
+   "title": "Attention-based Residual Autoencoder for Video Anomaly Detection",
+   "authors": "VT Le & YG Kim",
+   "corr": true,
+   "venue": "Applied Intelligence, 52, 3240–3254",
+   "type": "journal",
+   "links": [
+    {
+     "label": "Code",
+     "url": "https://github.com/vt-le/astnet"
+    },
+    {
+     "label": "Project page",
+     "url": "https://vt-le.github.io/astnet/"
+    }
+   ],
+   "if": "4.2",
+   "top": null,
+   "q": "Q2",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "Appl. Intell. 2023"
+  },
+  {
+   "area": "anomaly",
+   "year": 2020,
+   "title": "Android-GAN: Defending against Android Pattern Attacks using Multi-Modal Generative Network as Anomaly Detector",
+   "authors": "SY Shin, YW Kang, YG Kim",
+   "corr": true,
+   "venue": "Expert Systems With Applications, 112964",
+   "type": "journal",
+   "links": [],
+   "if": "9.4",
+   "top": "5%",
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "ESWA 2020"
+  },
+  {
+   "area": "drones",
+   "year": 2026,
+   "title": "From Pixels to Planning: A Generative AI Perspective of UAV Autonomy",
+   "authors": "R Imandi, MJ Ignacio, P Kumar, HK Song, YG Kim",
+   "corr": true,
+   "venue": "Archives of Computational Methods in Engineering",
+   "type": "preprint",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": "Under review",
+   "award": null,
+   "selected": false,
+   "short": "ARCME 2026"
+  },
+  {
+   "area": "drones",
+   "year": 2025,
+   "title": "Building sustainable federated learning models in Fog-enabled UAV-as-a-Service for aerial image classification",
+   "authors": "R Imandi, A Roy, YG Kim, P Kumar",
+   "corr": false,
+   "venue": "Sustainable Computing: Informatics and Systems, Vol. 46, 101133",
+   "type": "journal",
+   "links": [],
+   "if": "6.2",
+   "top": null,
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "SUSCOM 2025"
+  },
+  {
+   "area": "drones",
+   "year": 2025,
+   "title": "Autonomous Drone Navigation through Vertical Obstacles with Novel Reward Function and Temporal Shift Architecture",
+   "authors": "KG Diep and YG Kim",
+   "corr": true,
+   "venue": "IEEE Conference on Control, Decision and Information Technologies (CoDIT), July 2025",
+   "type": "conference",
+   "links": [
+    {
+     "label": "Video 1",
+     "url": "https://www.youtube.com/watch?v=Y8A3pt9yxP8"
+    },
+    {
+     "label": "Video 2",
+     "url": "https://www.youtube.com/watch?v=yC2c9BgMw1Q"
+    }
+   ],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "CoDIT 2025"
+  },
+  {
+   "area": "drones",
+   "year": 2024,
+   "title": "Reinforcement Learning based Drone Simulators: Survey, Practice, and Challenge",
+   "authors": "JH Chan, K Liu, Y Chen, AS Sagar, YG Kim",
+   "corr": true,
+   "venue": "Artificial Intelligence Review, 57, 281",
+   "type": "journal",
+   "links": [],
+   "if": "18.8",
+   "top": "2.8%",
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": true,
+   "short": "AI Review 2024"
+  },
+  {
+   "area": "drones",
+   "year": 2020,
+   "title": "Reward-Driven U-Net Training for Obstacle Avoidance Drone",
+   "authors": "SY Shin, YW Kang, YG Kim",
+   "corr": true,
+   "venue": "Expert Systems With Applications, 113064",
+   "type": "journal",
+   "links": [
+    {
+     "label": "Code",
+     "url": "https://github.com/anonymous276/Contents"
+    }
+   ],
+   "if": "9.4",
+   "top": "5%",
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "ESWA 2020"
+  },
+  {
+   "area": "drones",
+   "year": 2019,
+   "title": "Obstacle Avoidance Drone by Deep Reinforcement Learning and Its Racing with Human Pilot",
+   "authors": "SY Shin, YW Kang, YG Kim",
+   "corr": true,
+   "venue": "Applied Sciences, 9, 5571",
+   "type": "journal",
+   "links": [
+    {
+     "label": "Video",
+     "url": "https://www.youtube.com/watch?v=YOUTUBE_ID"
+    }
+   ],
+   "if": "2.9",
+   "top": null,
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "teaser": "videos/drone-racing-teaser.mp4",
+   "poster": "videos/drone-racing-poster.jpg",
+   "short": "Appl. Sci. 2019"
+  },
+  {
+   "area": "drones",
+   "year": 2019,
+   "title": "Automatic Drone Navigation in Realistic 3D Landscapes using Deep Reinforcement Learning",
+   "authors": "SY Shin, YW Kang, YG Kim",
+   "corr": true,
+   "venue": "6th International Conference on Control, Decision and Information Technologies (CoDIT)",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "CoDIT 2019"
+  },
+  {
+   "area": "drones",
+   "year": 2019,
+   "title": "Hand Gesture-based Wearable Human-Drone Interface for Intuitive Movement Control",
+   "authors": "SY Shin, YW Kang, YG Kim",
+   "corr": true,
+   "venue": "IEEE International Conference on Consumer Electronics (ICCE)",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "ICCE 2019"
+  },
+  {
+   "area": "hci",
+   "year": 2026,
+   "title": "Closing the Loop: Unified 3D Scene Generation and Immersive Interaction via LLM-RL Coupling",
+   "authors": "AH Vo, S Lee, PJ Kim, SM Choi, YG Kim",
+   "corr": true,
+   "venue": "IEEE Transactions on Multimedia · arXiv:2605.05711",
+   "type": "preprint",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": "Under revision",
+   "award": null,
+   "selected": false,
+   "short": "IEEE TMM 2026"
+  },
+  {
+   "area": "hci",
+   "year": 2024,
+   "title": "UI/UX for Generative AI: Taxonomy, Trend, and Challenge",
+   "authors": "TS Kim, MJ Ignacio, S Yu, H Jin, YG Kim",
+   "corr": true,
+   "venue": "IEEE Access, 12, 179891–179911",
+   "type": "journal",
+   "links": [],
+   "if": "4.2",
+   "top": null,
+   "q": "Q2",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "IEEE Access 2024"
+  },
+  {
+   "area": "hci",
+   "year": 2024,
+   "title": "Meme Analysis using LLM-based Contextual Information and U-net Encapsulated Transformer",
+   "authors": "MJ Ignacio, TT Nguyen, H Jin, YG Kim",
+   "corr": true,
+   "venue": "IEEE Access, 12, 125993–126005",
+   "type": "journal",
+   "links": [
+    {
+     "label": "Code",
+     "url": "https://github.com/ignaciomarvinjohn/meme-uet-hmt"
+    }
+   ],
+   "if": "4.2",
+   "top": null,
+   "q": "Q2",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "IEEE Access 2024"
+  },
+  {
+   "area": "hci",
+   "year": 2023,
+   "title": "Coarse-to-Fine Fusion for Language Grounding in 3D Navigation",
+   "authors": "TT Nguyen, AH Vo, SM Choi, YG Kim",
+   "corr": true,
+   "venue": "Knowledge-Based Systems, 277, 110785",
+   "type": "journal",
+   "links": [
+    {
+     "label": "Video",
+     "url": "https://www.youtube.com/watch?v=rwODCJFM1SY"
+    }
+   ],
+   "if": "8.0",
+   "top": null,
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": true,
+   "short": "KBS 2023"
+  },
+  {
+   "area": "hci",
+   "year": 2022,
+   "title": "Analysis of Sentiment, Emotion & Intensity of Emotion Classes from Meme Images using Single and Multi-Modalities",
+   "authors": "TT Nguyen, NT Pham, ND Nguyen, H Nguyen, LH Nguyen, YG Kim",
+   "corr": true,
+   "venue": "AAAI Workshop on Multimodal Fact-Checking and Hate Speech Detection, Vancouver, Canada",
+   "type": "workshop",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "AAAIW 2022"
+  },
+  {
+   "area": "hci",
+   "year": 2012,
+   "title": "Human and Robot Localization Using Histogram of Oriented Gradients (HOG) Feature for an Active Information Display in Intelligent Space",
+   "authors": "JE Lee, JH Kim, SJ Kim, YG Kim, JH Lee, GT Park",
+   "corr": false,
+   "venue": "Advanced Science Letters, 9(1)",
+   "type": "journal",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "hci",
+   "year": 2007,
+   "title": "Human interface for the robot control in networked and multi-sensored environment",
+   "authors": "HG Lee, YG Kim, HD Lee, JH Kim, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 4555, pp. 928–935",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "genai",
+   "year": 2026,
+   "title": "Revisiting U-Net: a foundational backbone for modern generative AI",
+   "authors": "MJ Ignacio, S Shin, H Jin, SJ Yoo, D Han, YG Kim",
+   "corr": true,
+   "venue": "Artificial Intelligence Review, Vol. 59, 45",
+   "type": "journal",
+   "links": [],
+   "if": "18.8",
+   "top": "2.8%",
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": true,
+   "short": "AI Review 2026"
+  },
+  {
+   "area": "genai",
+   "year": 2026,
+   "title": "U-Net Encapsulated Transformer for Reducing Dimensionality in Training Large Language Models",
+   "authors": "MJ Ignacio, YG Kim, H Jin, SH Yu",
+   "corr": false,
+   "venue": "ACM Transactions on Intelligent Systems and Technology, Vol. 17, 3, pp. 1–32",
+   "type": "journal",
+   "links": [],
+   "if": "10.7",
+   "top": "3.2%",
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": true,
+   "short": "ACM TIST 2026"
+  },
+  {
+   "area": "genai",
+   "year": 2024,
+   "title": "UET4Rec: U-net Encapsulated Transformer for Sequential Recommender",
+   "authors": "J Wang, MJ Ignacio, S Yu, H Jin, YG Kim",
+   "corr": true,
+   "venue": "Expert Systems with Applications, 255, 124781",
+   "type": "journal",
+   "links": [
+    {
+     "label": "Code",
+     "url": "https://github.com/ignaciomarvinjohn/uet4rec/tree/main"
+    }
+   ],
+   "if": "9.4",
+   "top": "5%",
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "ESWA 2024"
+  },
+  {
+   "area": "other",
+   "year": 2026,
+   "title": "AdaFuse-Det: Adaptive Cross-Modal Fusion of Event Cameras for Robust Object Detection in Low-Light RGB Imagery",
+   "authors": "R Imandi, B Chethana, B Chakravarthi, YG Kim, S Manipriya, P Kumar",
+   "corr": false,
+   "venue": "IEEE ICRA Workshop on The Challenges and Opportunities of Neuromorphic Field Robotics and Automation, June 2026",
+   "type": "workshop",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "ICRAW 2026"
+  },
+  {
+   "area": "other",
+   "year": 2024,
+   "title": "Joint Task Offloading Based on Distributed Deep Reinforcement Learning-Based Genetic Optimization Algorithm for Internet of Vehicles",
+   "authors": "H Jin, YG Kim, Z Jin, C Fan, Y Xu",
+   "corr": false,
+   "venue": "Journal of Grid Computing, 22(1), 34",
+   "type": "journal",
+   "links": [],
+   "if": "3.9",
+   "top": null,
+   "q": "Q2",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "J. Grid Comput. 2024"
+  },
+  {
+   "area": "other",
+   "year": 2024,
+   "title": "Object Detection and Classification Framework for Analysis of Video Data Acquired from Indian Roads",
+   "authors": "A Padia, TN Aryan, S Thummagunti, V Sharma, MK Vanahalli, P Prasad, GN Girish, YG Kim, P Kumar",
+   "corr": false,
+   "venue": "Sensors, 24, 6319",
+   "type": "journal",
+   "links": [],
+   "if": "4.0",
+   "top": null,
+   "q": "Q2",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "Sensors 2024"
+  },
+  {
+   "area": "other",
+   "year": 2022,
+   "title": "Reflection Symmetry Detection of Shapes based on Shape Signatures",
+   "authors": "TP Nguyen, HP Truong, TT Nguyen, YG Kim",
+   "corr": true,
+   "venue": "Pattern Recognition, Vol. 128, 108667",
+   "type": "journal",
+   "links": [],
+   "if": "9.1",
+   "top": "6.6%",
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": true,
+   "short": "Pattern Recogn. 2022"
+  },
+  {
+   "area": "other",
+   "year": 2021,
+   "title": "Attacks and Preventive Measures on Video Surveillance Systems: A Review",
+   "authors": "P Vennam, TC Pramod, BM Thippeswamy, YG Kim, P Kumar",
+   "corr": false,
+   "venue": "Applied Sciences, 11(12), 5571",
+   "type": "journal",
+   "links": [],
+   "if": "2.9",
+   "top": null,
+   "q": "Q1",
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "Appl. Sci. 2021"
+  },
+  {
+   "area": "other",
+   "year": 2019,
+   "title": "NTIRE 2019 Image Dehazing Challenge Report",
+   "authors": "C Ancuti et al. (incl. YG Kim, participating team)",
+   "corr": false,
+   "venue": "CVPRW on NTIRE, Long Beach, California, USA",
+   "type": "workshop",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "CVPRW 2019"
+  },
+  {
+   "area": "other",
+   "year": 2018,
+   "title": "Iterative Application of Autoencoder for Video Inpainting and Fingerprint Denoising",
+   "authors": "LM Quan & YG Kim",
+   "corr": true,
+   "venue": "ECCV Workshops",
+   "type": "workshop",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false,
+   "short": "ECCVW 2018"
+  },
+  {
+   "area": "other",
+   "year": 2015,
+   "title": "Tracking a Human Fast and Reliably Against Occlusion and Human-Crossing",
+   "authors": "XP Huynh, IH Choi, YG Kim",
+   "corr": false,
+   "venue": "Pacific-Rim Symposium on Image and Video Technology (PSIVT) 2015, New Zealand · LNCS, Vol. 9431, pp. 461–472",
+   "type": "conference",
+   "links": [],
+   "if": null,
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2012,
+   "title": "Use of an Evolutionary Inductive Self-organizing Network for Uncertain Nonlinear and Robotic Systems",
+   "authors": "DW Kim, SJ Seo, YG Kim",
+   "corr": false,
+   "venue": "International Journal of Advanced Robotic Systems, 9",
+   "type": "journal",
+   "links": [],
+   "if": "2.3",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2012,
+   "title": "Stereo Image Synthesis by View Morphing with Stereo Consistency",
+   "authors": "SM Rhee, YJ Yoon, IK Shin, YG Kim, YJ Choi, SM Choi",
+   "corr": false,
+   "venue": "Applied Mathematics & Information Sciences, Vol. 6, pp. 195s–200s",
+   "type": "journal",
+   "links": [],
+   "if": "1.23",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2007,
+   "title": "Tracking and Segmenting Diverse Objects Using Active Appearance Model",
+   "authors": "KS Cho, SM Choi, YG Kim",
+   "corr": false,
+   "venue": "LNCS, Vol. 4555, pp. 928–935",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2007,
+   "title": "Web access performance with intelligent mobile agents for real-time ubiquitous-unified web information",
+   "authors": "YB Kim, YG Kim, JJ Lee",
+   "corr": false,
+   "venue": "LNCS, Vol. 4681, pp. 208–217",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2006,
+   "title": "A stereovision based advanced airbag system",
+   "authors": "SJ Lee, YG Kim, MS Jang, HG Lee, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 4251, pp. 590–597",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2006,
+   "title": "Performance Comparison between Backpropagation, Neuro-Fuzzy Network, and SVM",
+   "authors": "YG Kim, MS Jang, KS Cho, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3967, pp. 438–446",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2006,
+   "title": "Head Detection and Tracking for the Car Occupants Pose Recognition",
+   "authors": "JE Lee, YG Kim, SJ Kim, MS Jang, SJ Lee, MC Park, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 4031, pp. 540–547",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2005,
+   "title": "Shape Comparison of the Hippocampus Using a Multiresolution Representation and ICP Normalization",
+   "authors": "JS Kim, YG Kim, SM Choi, MH Kim",
+   "corr": false,
+   "venue": "LNCS, Vol. 3683, pp. 233–239",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2005,
+   "title": "3-D Pose Tracking of the Car Occupant",
+   "authors": "SJ Kim, YG Kim, JE Lee, MS Jang, SJ Lee, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3683, pp. 219–224",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2005,
+   "title": "Similarity Estimation of 3-D Shapes Using Modal Strain Energy",
+   "authors": "SM Choi, YG Kim",
+   "corr": false,
+   "venue": "LNCS, Vol. 3683, pp. 206–211",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2005,
+   "title": "Vision based Automatic Occupant Classification and Pose Recognition for Smart Airbag Deployment",
+   "authors": "MS Jang, YG Kim, SJ Kim, JE Lee, SJ Lee, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3643, pp. 410–415",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2005,
+   "title": "Trajectory interpretation by supplementary eye field neurons during ocular baseball",
+   "authors": "YG Kim, J Badler, SJ Heinen",
+   "corr": false,
+   "venue": "Journal of Neurophysiology, Vol. 94, pp. 1385–1391",
+   "type": "journal",
+   "links": [],
+   "if": "2.5",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2005,
+   "title": "Morphometry of the Hippocampus Based on a Deformable Model and Support Vector Machines",
+   "authors": "JS Kim, YG Kim, SM Choi, MH Kim",
+   "corr": false,
+   "venue": "LNAI, Vol. 3581, pp. 353–362",
+   "type": "conference",
+   "links": [],
+   "if": "0.25",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2005,
+   "title": "A Feature Map Consisting of Orientation and Inter-ridge Spacing for Fingerprint Retrieval",
+   "authors": "SO Lee, YG Kim, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3546, pp. 184–190",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2005,
+   "title": "Head Detection of the Car Occupant based on Contour Models and Support Vector Machines",
+   "authors": "YG Kim, JE Lee, SJ Kim, SM Choi, GT Park",
+   "corr": false,
+   "venue": "LNAI, Vol. 3533, pp. 59–61",
+   "type": "conference",
+   "links": [],
+   "if": "0.25",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2004,
+   "title": "Occupant classification for smart airbag using stereovision and support vector machines",
+   "authors": "HG Lee, YG Kim, MS Jang, SJ Kim, SJ Lee, GT Park",
+   "corr": false,
+   "venue": "LNAI, Vol. 3173, pp. 642–647",
+   "type": "conference",
+   "links": [],
+   "if": "0.25",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2004,
+   "title": "A boundary surface based ray casting using 6-depth buffers",
+   "authors": "JW Song, OB Gwun, SW Kim, YG Kim",
+   "corr": false,
+   "venue": "LNCS, Vol. 3314, pp. 1134–1140",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2004,
+   "title": "3-D Shape analysis of anatomical structures based on an interactive multiresolution approach",
+   "authors": "SM Choi, JS Kim, YG Kim, JY Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3332, pp. 319–326",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2004,
+   "title": "Brain region extraction and direct volume rendering of MRI Head data",
+   "authors": "YG Kim, OB Gwun, JW Song",
+   "corr": false,
+   "venue": "LNCS, Vol. 3314, pp. 516–522",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2004,
+   "title": "Pose Classification of car occupant using stereovision and support vector machines",
+   "authors": "MS Jang, YG Kim, HG Lee, SJ Lee, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3215, pp. 196–204",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2004,
+   "title": "Deformable templates for recognizing the shape of the Zebra Fish Egg",
+   "authors": "HD Lee, MS Jang, SJ Lee, YG Kim, BK Kim, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3045, pp. 489–497",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2004,
+   "title": "Shape Recognition of the Embryo Cell using deformable template for micromanipulation",
+   "authors": "MS Jang, SJ Lee, HD Lee, YG Kim, BK Kim, GT Park",
+   "corr": false,
+   "venue": "LNCS, Vol. 3029, pp. 463–472",
+   "type": "conference",
+   "links": [],
+   "if": "0.51",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  },
+  {
+   "area": "other",
+   "year": 2002,
+   "title": "Conditions under which stereopsis and motion perceptions are blind",
+   "authors": "YG Kim, JD Mollon",
+   "corr": false,
+   "venue": "Perception, Vol. 31, pp. 65–71",
+   "type": "journal",
+   "links": [],
+   "if": "1.7",
+   "top": null,
+   "q": null,
+   "status": null,
+   "award": null,
+   "selected": false
+  }
+ ]
+}
+</script>
+<script>
+(function(){
+const DATA = JSON.parse(document.getElementById('papers-data').textContent);
+const P = DATA.papers.map((p,i)=>({...p, id:'p'+(i+1)}));
+const AREAS = DATA.areas;
+const EARLY = 2016;
+const ICONS = {"face": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8\"/><path d=\"M9 9.5h.01M15 9.5h.01\"/>", "anomaly": "<path d=\"M3 17l5-6 4 4 3-5 6 7\"/><circle cx=\"15\" cy=\"6\" r=\"2\"/><path d=\"M3 21h18\"/>", "drones": "<circle cx=\"5\" cy=\"5\" r=\"2.5\"/><circle cx=\"19\" cy=\"5\" r=\"2.5\"/><circle cx=\"5\" cy=\"19\" r=\"2.5\"/><circle cx=\"19\" cy=\"19\" r=\"2.5\"/><rect x=\"9\" y=\"9\" width=\"6\" height=\"6\" rx=\"1\"/><path d=\"M7 7l2 2M17 7l-2 2M7 17l2-2M17 17l-2-2\"/>", "hci": "<path d=\"M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z\"/><path d=\"M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2v2l-3-2h-4\"/>", "genai": "<path d=\"M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z\"/><path d=\"M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z\"/>", "other": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/>"};              // papers in or before this year collapse under "Earlier publications"
+const TYPES = {journal:'Journal', conference:'Conference', workshop:'Workshop', preprint:'Preprint'};
+const st = {q:'', view:'area', type:'all', sel:false};
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ext = '<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>';
+const chev = '<svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+
+function hl(text){
+  let h = esc(text);
+  if(!st.q) return h;
+  const words = st.q.split(/\s+/).filter(Boolean).map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  return words.length ? h.replace(new RegExp('('+words.join('|')+')','gi'),'<mark>$1</mark>') : h;
+}
+function match(p){
+  if(st.type!=='all' && p.type!==st.type) return false;
+  if(st.sel && !p.selected) return false;
+  if(st.q){
+    const hay = (p.title+' '+p.authors+' '+p.venue+' '+p.year).toLowerCase();
+    return st.q.toLowerCase().split(/\s+/).every(w=>hay.includes(w));
+  }
+  return true;
+}
+function bibtex(p){
+  const first = p.authors.split(/,| and | & /)[0].trim().split(' ').pop();
+  const key = (first+p.year+p.title.split(/\W+/).find(w=>w.length>3)).replace(/\W/g,'').toLowerCase();
+  const authors = p.authors.replace(/\s*(&| and )\s*/g,', ').split(',').map(a=>a.trim()).filter(Boolean)
+    .map(a=>{const parts=a.split(' '); const last=parts.pop(); return last+', '+parts.join(' ');}).join(' and ');
+  const kind = p.type==='journal' ? 'article' : 'inproceedings';
+  const field = p.type==='journal' ? 'journal' : 'booktitle';
+  return `@${kind}{${key},\n  title = {${p.title}},\n  author = {${authors}},\n  ${field} = {${p.venue}},\n  year = {${p.year}}\n}`;
+}
+function item(p){
+  const au = hl(p.authors).replace(/YG Kim/, '<strong>YG Kim</strong>') + (p.corr?'†':'');
+  const links = p.links.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}${ext}</a>`).join('');
+  const b = [];
+  b.push(`<span class="b ty">${TYPES[p.type]}</span>`);
+  if(p.if) b.push(`<span class="b">IF ${esc(p.if)}</span>`);
+  if(p.top) b.push(`<span class="b top">Top ${esc(p.top)}</span>`);
+  if(p.q) b.push(`<span class="b ${p.q==='Q1'?'q1':''}">${p.q}</span>`);
+  if(p.status) b.push(`<span class="b st">${esc(p.status)}</span>`);
+  if(p.award) b.push(`<span class="b st">🏆 ${esc(p.award)}</span>`);
+  // Media slot: teaser video > still image > placeholder. Earlier papers (<= EARLY) stay text-only.
+  let media = '';
+  if(p.teaser) media = `<video muted loop playsinline preload="none" poster="${esc(p.poster||'')}" aria-label="Video preview"><source src="${esc(p.teaser)}" type="video/mp4"></video>`;
+  else if(p.image) media = `<img src="${esc(p.image)}" alt="" loading="lazy">`;
+  else if(p.year > EARLY) media = `<div class="ph" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS[p.area]||ICONS.other}</svg><b>${esc(p.short||TYPES[p.type])}</b></div>`;
+  if(media) media = `<div class="media">${media}</div>`;
+  return `<li id="${p.id}">
+<div class="yr">${p.year}</div>${media}
+<div class="body">
+<div class="t">${p.selected?'<span class="star" title="Selected paper">★</span>':''}${hl(p.title)}</div>
+<div class="au">${au}</div>
+<div class="ve">${hl(p.venue)}</div>
+<div class="acts">${links}<button type="button" data-bib="${p.id}">BibTeX</button><button type="button" data-link="${p.id}">Link</button></div>
+<div class="meta">${b.join('')}</div>
+</div></li>`;
+}
+function group(title, id, items, sub){
+  const recent = items.filter(p=>p.year>EARLY), early = items.filter(p=>p.year<=EARLY);
+  const filtering = st.q || st.type!=='all' || st.sel;
+  let h = `<section class="grp" id="${id}"><div class="grp-h"><h2 class="serif">${esc(title)}</h2><span>${items.length} paper${items.length>1?'s':''}${sub||''}</span></div>`;
+  if(st.view==='year'){ return h + `<ul class="pubs">${items.map(item).join('')}</ul></section>`; }
+  if(recent.length) h += `<ul class="pubs">${recent.map(item).join('')}</ul>`;
+  if(early.length) h += `<details class="sgroup"${filtering||!recent.length?' open':''} style="${recent.length?'':'border-top:1px solid var(--line)'}"><summary>Earlier publications (2002–${EARLY}) · ${early.length}${chev}</summary><ul class="pubs">${early.map(item).join('')}</ul></details>`;
+  return h + '</section>';
+}
+let render; render = function(){
+  const list = P.filter(match);
+  let html = '';
+  if(st.view==='area'){
+    for(const a of AREAS){ const items = list.filter(p=>p.area===a.id); if(items.length) html += group(a.name, a.id, items); }
+    $('areanav').innerHTML = AREAS.map(a=>{const n=list.filter(p=>p.area===a.id).length; return n?`<a href="#${a.id}">${esc(a.name)}<span>${n}</span></a>`:''}).join('');
+  } else {
+    const years = [...new Set(list.map(p=>p.year))].sort((a,b)=>b-a);
+    for(const y of years) html += group(String(y), 'y'+y, list.filter(p=>p.year===y));
+    $('areanav').innerHTML = years.map(y=>`<a href="#y${y}">${y}<span>${list.filter(p=>p.year===y).length}</span></a>`).join('');
+  }
+  $('list').innerHTML = html || `<div class="empty">No publications match these filters. <button class="reset" data-reset>Clear filters</button></div>`;
+  const filtering = st.q || st.type!=='all' || st.sel;
+  $('result').innerHTML = `Showing <b>${list.length}</b> of ${P.length}` + (filtering?` · <button class="reset" data-reset>Clear filters</button>`:'');
+};
+function chips(){
+  const c = t => P.filter(p=>t==='all'||p.type===t).length;
+  const b = (attr,val,label,n,on)=>`<button type="button" class="chip" ${attr}="${val}" aria-pressed="${on}">${label}<span class="n">${n}</span></button>`;
+  $('chips').innerHTML =
+    b('data-type','all','All',P.length,st.type==='all') +
+    Object.keys(TYPES).map(t=>b('data-type',t,TYPES[t]+'s',c(t),st.type===t)).join('') +
+    '<span style="width:1px;background:var(--line2);margin:4px 4px"></span>' +
+    b('data-toggle','sel','★ Selected',P.filter(p=>p.selected).length,st.sel);
+}
+function stats(){
+  const yrs = P.map(p=>p.year);
+  const s = [
+    [P.length,'Publications'],
+    [P.filter(p=>p.type==='journal').length,'Journal articles'],
+    [P.filter(p=>p.year>=new Date().getFullYear()-4).length,'Papers in the last 5 years'],
+    [Math.min(...yrs)+'–'+Math.max(...yrs),'Years active'],
+  ];
+  $('stats').innerHTML = s.map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),1800);}
+function copy(text,msg){
+  (navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(()=>toast(msg)).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast(msg);}catch(e){toast('Copy failed');} ta.remove();});
+}
+let timer;
+$('q').addEventListener('input', e=>{clearTimeout(timer); timer=setTimeout(()=>{st.q=e.target.value.trim(); render();},120);});
+document.addEventListener('click', e=>{
+  const t = e.target.closest('button'); if(!t) return;
+  if(t.dataset.view){ st.view=t.dataset.view; document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed', b===t)); render(); }
+  else if(t.dataset.type){ st.type=t.dataset.type; chips(); render(); }
+  else if(t.dataset.toggle){ st[t.dataset.toggle]=!st[t.dataset.toggle]; chips(); render(); }
+  else if(t.dataset.bib){ copy(bibtex(P.find(p=>p.id===t.dataset.bib)),'BibTeX copied to clipboard'); }
+  else if(t.dataset.link){ copy(location.href.split('#')[0]+'#'+t.dataset.link,'Link copied'); }
+  else if(t.hasAttribute('data-reset')){ Object.assign(st,{q:'',type:'all',sel:false}); $('q').value=''; chips(); render(); }
+});
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es=>es.forEach(e=>{ const v=e.target; if(e.isIntersecting){ v.play().catch(()=>{}); } else v.pause(); }),{threshold:.4}) : null;
+const _render = render; render = function(){ _render(); if(io) document.querySelectorAll('.media video').forEach(v=>io.observe(v)); };
+stats(); chips(); render();
+if(location.hash){ const el=document.querySelector(location.hash); if(el){ const d=el.closest('details'); if(d) d.open=true; el.scrollIntoView(); } }
+})();
+</script>
 </body>
 </html>

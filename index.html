@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yong-Guk Kim — Professor, Sejong University</title>
-<meta name="description" content="Prof. Yong-Guk Kim, Department of Computer Engineering, Sejong University. Research in facial expression generation, anomaly detection, autonomous drones, and multimodal LLMs for HCI/HRI.">
+<meta name="description" content="Prof. Yong-Guk Kim, Department of Computer Engineering, Sejong University. Research in computational vision and visual perception, human-centered computing, sensing for health and safety, generative AI, and autonomous systems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
@@ -12,6 +12,13 @@ body{margin:0;background:#FFFFFF}
 a{color:#7A1F2B;text-decoration:none}a:hover{color:#5A1520;text-decoration:underline}
 </style>
 <style>html{scroll-behavior:smooth}</style>
+<style>
+.ra-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.ra-grid .ra-card{grid-column:span 2}
+.ra-grid .ra-card:nth-child(4),.ra-grid .ra-card:nth-child(5){grid-column:span 3}
+@media (max-width:900px){.ra-grid{grid-template-columns:repeat(2,1fr)}.ra-grid .ra-card,.ra-grid .ra-card:nth-child(4){grid-column:span 1}.ra-grid .ra-card:nth-child(5){grid-column:span 2}}
+@media (max-width:600px){.ra-grid{grid-template-columns:1fr}.ra-grid .ra-card,.ra-grid .ra-card:nth-child(4),.ra-grid .ra-card:nth-child(5){grid-column:span 1}}
+</style>
 <style>
 .sgroup summary{list-style:none}
 .sgroup summary::-webkit-details-marker{display:none}
@@ -48,7 +55,7 @@ a{color:#7A1F2B;text-decoration:none}a:hover{color:#5A1520;text-decoration:under
 <h1 style="margin: 0 0 6px; font-family: 'Source Serif 4', Georgia, serif; font-size: 48px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">Yong-Guk Kim</h1>
 <p style="margin: 0 0 4px; font-size: 18px; color: #3D4552">Department of Computer Engineering, Sejong University</p>
 <p style="margin: 0 0 24px; font-size: 16px; color: #5A6270">Seoul, Republic of Korea · Ph.D., University of Cambridge</p>
-<p style="margin: 0 0 28px; max-width: 640px; font-size: 17px; color: #2B313A">His research has focused on the intersection of vision, generation and interaction: facial expression recognition and generation, anomaly detection, autonomous drones, and multimodal large language models for human–computer and human–robot interaction.</p>
+<p style="margin: 0 0 28px; max-width: 640px; font-size: 17px; color: #2B313A">His research spans computational vision and visual perception, multimodal human-centered computing, human-centered sensing for health and safety, generative and multimodal AI, and visual learning for autonomous systems.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <a href="about.html#contact" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 6px; background: #7A1F2B; color: #FFFFFF; font-size: 15px; font-weight: 500">Email</a>
 <a href="https://scholar.google.com/citations?user=gGfbXFIAAAAJ&hl=ko" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 6px; border: 1px solid #C9D0D9; color: #16191D; font-size: 15px; font-weight: 500">Google Scholar</a>
@@ -61,99 +68,49 @@ a{color:#7A1F2B;text-decoration:none}a:hover{color:#5A1520;text-decoration:under
 
 <section id="research" style="background: #F6F7F9; border-top: 1px solid #E3E6EA; border-bottom: 1px solid #E3E6EA">
 <div style="max-width: 1120px; margin: 0 auto; padding: 64px 24px">
-<h2 style="margin: 0 0 8px; font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600">Research Areas</h2>
-<p style="margin: 0 0 32px; color: #5A6270; max-width: 640px">Four connected directions, from perceiving people and scenes to machines that respond to them.</p>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+<h2 style="margin: 0 0 8px; font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600">Research Focus Areas</h2>
+<p style="margin: 0 0 32px; color: #5A6270; max-width: 640px">Five connected directions, from how people perceive the visual world to machines that see, generate and act.</p>
+<div class="ra-grid">
 
-<div style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
-<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A1F2B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8"></path><path d="M9 9.5h.01M15 9.5h.01"></path></svg>
-<h3 style="margin: 0; font-size: 18px; font-weight: 600">Facial Expression Recognition &amp; Generation</h3>
-<p style="margin: 0; font-size: 15px; color: #4A525E">Facial feature representation, face tracking, 3D gaze and hand-pose estimation, drowsiness detection, and instruction-driven 3D facial expression generation.</p>
-<a href="publications.html#face" style="font-size: 14px; font-weight: 500; margin-top: auto">29 papers →</a>
+<div class="ra-card" style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A1F2B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+<h3 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.35">Computational Vision and Visual Perception</h3>
+<p style="margin: 0; font-size: 15px; color: #4A525E">Human perception of transparency, occlusion, and lightness (doctoral and postdoctoral work at Cambridge, Utrecht, and Smith-Kettlewell); current psychophysical studies on occluding vs. shadow/spotlight transparency and on anorthoscopic (slit-viewing) perception, using calibrated displays and eye tracking.</p>
+<a href="publications.html#vision" style="font-size: 14px; font-weight: 500; margin-top: auto">17 papers →</a>
 </div>
 
-<div style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
-<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A1F2B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 4 3-5 6 7"></path><circle cx="15" cy="6" r="2"></circle><path d="M3 21h18"></path></svg>
-<h3 style="margin: 0; font-size: 18px; font-weight: 600">Anomaly Detection</h3>
-<p style="margin: 0; font-size: 15px; color: #4A525E">Video anomaly detection in aerial and ground-based footage with residual autoencoders and spatio-temporal transformers, and GAN-based detection of attacks on mobile devices.</p>
-<a href="publications.html#anomaly" style="font-size: 14px; font-weight: 500; margin-top: auto">3 papers →</a>
+<div class="ra-card" style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A1F2B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.5"></circle><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"></path><path d="M19 4.5c1.2.8 2 2.1 2 3.5s-.8 2.7-2 3.5M5 4.5C3.8 5.3 3 6.6 3 8s.8 2.7 2 3.5"></path></svg>
+<h3 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.35">Multimodal Perception and Human-Centered Computing</h3>
+<p style="margin: 0; font-size: 15px; color: #4A525E">Gaze, gesture, facial-expression, and affect modeling; wearable human–drone interfaces; and UI/UX design for generative AI.</p>
+<a href="publications.html#hcc" style="font-size: 14px; font-weight: 500; margin-top: auto">22 papers →</a>
 </div>
 
-<div style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<div class="ra-card" style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A1F2B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"></path><path d="M8 12h2.5l1.5-3 2 6 1.5-3H16"></path></svg>
+<h3 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.35">Human-Centered Sensing for Health and Safety</h3>
+<p style="margin: 0; font-size: 15px; color: #4A525E">Driver drowsiness and fatigue detection, fake-emotion and affective-state recognition, 3D gaze estimation from natural face images, and video anomaly detection for human and infrastructure safety.</p>
+<a href="publications.html#sensing" style="font-size: 14px; font-weight: 500; margin-top: auto">23 papers →</a>
+</div>
+
+<div class="ra-card" style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A1F2B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"></path><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"></path></svg>
+<h3 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.35">Generative and Multimodal AI</h3>
+<p style="margin: 0; font-size: 15px; color: #4A525E">U-Net and U-Net Encapsulated Transformer (UET) architectures for generative models and LLMs; language grounding for 3D navigation; instruction-driven facial animation; sign-language production; and LLM–RL coupling for interactive 3D scene generation.</p>
+<a href="publications.html#genai" style="font-size: 14px; font-weight: 500; margin-top: auto">8 papers →</a>
+</div>
+
+<div class="ra-card" style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
 <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A1F2B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="5" r="2.5"></circle><circle cx="19" cy="5" r="2.5"></circle><circle cx="5" cy="19" r="2.5"></circle><circle cx="19" cy="19" r="2.5"></circle><rect x="9" y="9" width="6" height="6" rx="1"></rect><path d="M7 7l2 2M17 7l-2 2M7 17l2-2M17 17l-2-2"></path></svg>
-<h3 style="margin: 0; font-size: 18px; font-weight: 600">Autonomous Drones</h3>
-<p style="margin: 0; font-size: 15px; color: #4A525E">Deep reinforcement learning for obstacle avoidance and navigation, drone simulators, human–drone interfaces, and generative-AI-driven UAV autonomy.</p>
-<a href="publications.html#drones" style="font-size: 14px; font-weight: 500; margin-top: auto">8 papers →</a>
-</div>
-
-<div style="background: #FFFFFF; border: 1px solid #E3E6EA; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
-<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A1F2B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2v2l-3-2h-4"></path></svg>
-<h3 style="margin: 0; font-size: 18px; font-weight: 600">Multimodal LLMs for HCI / HRI</h3>
-<p style="margin: 0; font-size: 15px; color: #4A525E">Language grounding for 3D navigation, LLM-based meme understanding, UI/UX for generative AI, and LLM–RL coupling for immersive 3D interaction.</p>
-<a href="publications.html#hci" style="font-size: 14px; font-weight: 500; margin-top: auto">7 papers →</a>
+<h3 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.35">Visual Learning for Autonomous Systems</h3>
+<p style="margin: 0; font-size: 15px; color: #4A525E">Reinforcement learning and visual representation learning for UAV navigation and obstacle avoidance; simulation-based training; and event-camera/RGB fusion for low-light perception.</p>
+<a href="publications.html#auto" style="font-size: 14px; font-weight: 500; margin-top: auto">11 papers →</a>
 </div>
 
 </div>
+<p style="margin: 28px 0 0"><a href="publications.html" style="font-size: 15px; font-weight: 500">All 81 publications →</a></p>
 </div>
 </section>
-
-<section id="publications" style="max-width: 1120px; margin: 0 auto; padding: 64px 24px">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 8px">
-<h2 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600">Selected Publications</h2>
-<a href="publications.html" style="font-size: 15px; font-weight: 500">All 81 publications →</a>
-</div>
-<p style="margin: 0 0 16px; font-size: 14px; color: #5A6270">IF = Impact Factor (Science Citation Index). Top % = JCR ranking percentile. † Corresponding author.</p>
-<ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #E3E6EA">
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2026</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Revisiting U-Net: a foundational backbone for modern generative AI</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">MJ Ignacio, S Shin, H Jin, SJ Yoo, D Han, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Artificial Intelligence Review, Vol. 59, 45</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 18.8</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 2.8%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span><a href="publications.html#genai" style="font-size: 12px; font-weight: 500">Generative AI &amp; Foundation Models</a></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2026</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">U-Net Encapsulated Transformer for Reducing Dimensionality in Training Large Language Models</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">MJ Ignacio, <strong style="color: #16191D">YG Kim</strong>, H Jin, SH Yu</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">ACM Transactions on Intelligent Systems and Technology, Vol. 17, 3, pp. 1–32</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 10.7</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 3.2%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span><a href="publications.html#genai" style="font-size: 12px; font-weight: 500">Generative AI &amp; Foundation Models</a></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2025</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Instruction-Driven 3D Facial Expression Generation and Transition</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">AH Vo, TS Kim, SM Choi, H Jin, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">IEEE Transactions on Multimedia, Vol. 27, pp. 6140–6153</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://vohoanganh.github.io/tg3dfet/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Project page<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 9.9</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 2%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span><a href="publications.html#face" style="font-size: 12px; font-weight: 500">Facial Expression Recognition &amp; Generation</a></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2025</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">HSTforU: Anomaly Detection in Aerial and Ground-based Videos with Hierarchical Spatio-Temporal Transformer for U-net</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">VT Le, H Jin, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Applied Intelligence, 55, 262</div>
-<div style="display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 4px; font-size: 14px; font-weight: 500"><a href="https://github.com/vt-le/HSTforU" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 6px 0">Code<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 3.5</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">Q2</span><a href="publications.html#anomaly" style="font-size: 12px; font-weight: 500">Anomaly Detection</a></div>
-</div>
-</li>
-<li style="display: flex; flex-wrap: wrap; gap: 2px 28px; padding: 18px 0; border-top: 1px solid #E3E6EA">
-<div style="flex: 0 0 56px; font-size: 15px; font-weight: 600; color: #7A1F2B; font-variant-numeric: tabular-nums; padding-top: 1px">2024</div>
-<div style="flex: 999 1 420px; min-width: 0">
-<div style="font-weight: 600; line-height: 1.45">Reinforcement Learning based Drone Simulators: Survey, Practice, and Challenge</div>
-<div style="margin-top: 4px; font-size: 15px; color: #4A525E">JH Chan, K Liu, Y Chen, AS Sagar, <strong style="color: #16191D">YG Kim</strong>†</div>
-<div style="font-size: 15px; color: #5A6270; font-style: italic">Artificial Intelligence Review, 57, 281</div>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #EEF1F5; color: #3D4552">IF 18.8</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #F5E8EA; color: #7A1F2B">Top 2.8%</span><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; background: #7A1F2B; color: #FFFFFF">Q1</span><a href="publications.html#drones" style="font-size: 12px; font-weight: 500">Autonomous Drones</a></div>
-</div>
-</li>
-</ul>
-</section>
-
 <!-- <section id="news" style="max-width: 1120px; margin: 0 auto; padding: 0 24px 64px">
 <h2 style="margin: 0 0 20px; font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; font-weight: 600">News</h2>
 <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px">
